@@ -1,0 +1,27 @@
+<h2 class="text-center mt-3 mb-4">Báo cáo hiệu suất nhân viên</h2>
+
+<table class="table table-bordered table-sm text-center align-middle">
+  <thead class="table-light">
+    <tr>
+      <th>Employee ID</th>
+      <th>Họ tên</th>
+      <th>Số ngày công</th>
+      <th>Tổng lương</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of performance">
+      <td>{{ row.employeeId }}</td>
+      <td>{{ row.fullName }}</td>
+      <td>{{ row.totalDays }}</td>
+      <td class="text-success fw-bold">{{ row.totalSalary | number: '1.0-0' }}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr class="table-secondary fw-bold">
+      <td colspan="2" class="text-end">Tổng cộng:</td>
+      <td>{{ grandTotalDays }}</td>
+      <td class="text-success">{{ grandTotalSalary | number: '1.0-0' }}</td>
+    </tr>
+  </tfoot>
+</table>

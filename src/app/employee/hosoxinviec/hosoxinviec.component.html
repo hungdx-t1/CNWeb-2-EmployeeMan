@@ -1,0 +1,22 @@
+<h2 class="text-center my-4 text-primary">📂 Hồ sơ xin việc</h2>
+
+<div class="row">
+  <div class="col-md-4 mb-3" *ngFor="let app of applications">
+    <div class="card shadow h-100">
+      <div class="card-body">
+        <h5 class="card-title">{{ app.name }}</h5>
+        <p><strong>Vị trí:</strong> {{ app.position }}</p>
+        <p><strong>Kinh nghiệm:</strong> {{ app.experience }}</p>
+        <p><strong>Liên hệ:</strong> {{ app.contact }}</p>
+        <span class="badge"
+              [ngClass]="{
+                'bg-secondary': app.status === 'Đang chờ duyệt',
+                'bg-success': app.status === 'Đã duyệt',
+                'bg-danger': app.status === 'Từ chối'
+              }">
+          {{ app.status }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

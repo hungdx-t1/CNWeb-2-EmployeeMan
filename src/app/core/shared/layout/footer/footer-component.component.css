@@ -1,0 +1,11 @@
+.footer {
+  background-color: #f1f1f1;
+  padding: 1rem;
+  text-align: center;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+* {
+  font-family: "google-san-medium", Sans-serif;
+}

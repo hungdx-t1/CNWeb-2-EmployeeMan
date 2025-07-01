@@ -1,0 +1,133 @@
+/* Container chính cho các điều khiển */
+.controls-container {
+    display: flex;
+    flex-direction: column; /* Sắp xếp các mục theo cột */
+    align-items: center; /* Căn giữa theo chiều ngang */
+    gap: 15px; /* Khoảng cách giữa các phần tử bên trong */
+    margin-bottom: 30px; /* Khoảng cách dưới khung điều khiển */
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    width: fit-content; /* Điều chỉnh chiều rộng khung theo nội dung */
+    margin-left: auto; /* Căn giữa khung trên màn hình lớn */
+    margin-right: auto; /* Căn giữa khung trên màn hình lớn */
+}
+
+/* Khung bọc 2 nút */
+.buttons-wrapper {
+    display: flex;
+    justify-content: space-between; /* Đặt nút sang 2 bên */
+    width: 100%; /* Chiếm toàn bộ chiều rộng của container */
+    max-width: 300px; /* Giới hạn chiều rộng của khung nút */
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    flex-grow: 1; /* Cho phép nút giãn nở để lấp đầy không gian */
+    margin: 0 10px; /* Khoảng cách giữa các nút */
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    color: #666;
+}
+
+button:not(:disabled):hover {
+    opacity: 0.9;
+}
+
+button:first-child {
+    background-color: #4caf50; /* Xanh lá cho check-in */
+    color: white;
+}
+
+button:last-child {
+    background-color: #2196f3; /* Xanh dương cho check-out */
+    color: white;
+}
+
+/* Hiển thị thời gian hiện tại */
+.current-time p {
+    font-size: 1.8em; /* Tăng kích thước chữ thời gian */
+    font-weight: bold;
+    color: #333;
+    margin: 0; /* Bỏ margin mặc định của thẻ p */
+}
+
+/* Lịch công theo bảng */
+.calendar-month {
+    margin-bottom: 32px;
+}
+
+h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.calendar-table {
+    width: 100%;
+    max-width: 75vw; /* Đảm bảo bảng rộng 3/4 chiều ngang màn hình */
+    margin: auto;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    font-size: 16px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.calendar-table th {
+    background-color: #e0f3ff;
+    color: #0d47a1;
+    padding: 10px 0;
+}
+
+.calendar-table th,
+.calendar-table td {
+    width: 14.28%;
+    height: 55px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    vertical-align: middle;
+}
+
+.calendar-table td {
+    background-color: #fff;
+}
+
+.calendar-table td span {
+    display: inline-block;
+    padding: 8px;
+    border-radius: 50%;
+    min-width: 30px;
+    box-sizing: border-box;
+}
+
+/* Màu trạng thái làm việc */
+.calendar-table td.reached span {
+    background-color: #26b52a; /* Xanh lá cây đậm hơn một chút */
+    color: white;
+    font-weight: bold;
+}
+
+.calendar-table td.worked span {
+    background-color: #c5b841; /* Vàng đậm hơn một chút */
+    color: #333;
+    font-weight: bold;
+}
+
+/* Optional: Style cho ngày hiện tại (nếu bạn muốn nổi bật) */
+/*
+.calendar-table td.today span {
+  border: 2px solid #007bff; // Ví dụ: viền xanh cho ngày hiện tại
+}
+*/

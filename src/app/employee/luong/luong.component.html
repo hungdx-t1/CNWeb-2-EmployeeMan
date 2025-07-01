@@ -1,0 +1,23 @@
+<h2 class="title">Tổng kết bảng lương</h2>
+
+<table class="salary-table">
+  <thead>
+    <tr>
+      <th>Tháng/Năm</th>
+      <th>Số ngày làm việc</th>
+      <th>Lương cơ bản (ngày)</th>
+      <th>Thưởng</th>
+      <th>Thành tiền</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of salaryTable">
+      <td>{{ row.month }}/{{ row.year }}</td>
+      <td>{{ row.daysWorked }}</td>
+      <td>{{ row.baseSalary | number: '1.0-0' }}</td>
+      <td>{{ row.bonus | number: '1.0-0' }}</td>
+      <td>{{ row.total + row.bonus | number: '1.0-0' }}</td>
+    </tr>
+  </tbody>
+</table>
+

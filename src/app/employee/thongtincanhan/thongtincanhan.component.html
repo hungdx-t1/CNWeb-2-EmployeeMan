@@ -1,0 +1,38 @@
+<!-- Thông tin cá nhân -->
+<div class="card mb-4 shadow-sm">
+  <div class="card-header bg-danger text-white fw-semibold">
+    🧑‍💼 Thông tin của bạn
+  </div>
+  <div class="card-body">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <p><strong>• Họ và tên:</strong> {{ employee?.firstName }} {{ employee?.lastName }}</p>
+        <p><strong>• Ngày sinh:</strong> {{ employee?.dateOfBirth }}</p>
+        <p><strong>• Giới tính:</strong> {{ employee?.gender }}</p>
+        <p><strong>• Ngày vào làm:</strong> {{ employee?.hireDate }}</p>
+        <p><strong>• Vị trí/chức vụ:</strong> {{ employee?.positionName }}</p>
+        <p><strong>• Cấp bậc:</strong> {{ employee?.level }}</p>
+        <p><strong>• Số điện thoại:</strong> {{ employee?.phoneNumber }}</p>
+        <p><strong>• Email:</strong> {{ employee?.email }}</p>
+        <p><strong>• Quốc tịch:</strong> {{ employee?.nation }}</p>
+        <p><strong>• Địa chỉ:</strong> {{ employee?.address }}</p>
+      </div>
+
+      <!-- Cột ảnh đại diện -->
+      <div class="col-md-4 text-center">
+        <img 
+          src="assets/images/user.png"
+          alt="Ảnh đại diện"
+          class="img-fluid rounded-circle shadow-sm"
+          style="max-width: 150px;"
+        />
+        <p class="mt-2 text-muted">Ảnh đại diện</p>
+      </div>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <a class="btn btn-outline-primary w-100" routerLink="/main/chinhsuathongtincanhan">✍️ Bấm vào đây để chỉnh sửa thông tin cá nhân</a>
+      </li>
+    </ul>
+  </div>
+</div>

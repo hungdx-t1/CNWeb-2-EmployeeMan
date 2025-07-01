@@ -1,0 +1,60 @@
+<div class="container mt-4">
+  <!-- TÌM KIẾM -->
+  <div class="search-container">
+    <h1>Quản lý đơn nghỉ việc</h1>
+    <div class="search-box">
+      <input type="text" [(ngModel)]="searchId" placeholder="Nhập ID nhân viên..." />
+      <button (click)="performSearch()">Tìm kiếm</button>
+    </div>
+  </div>
+
+  <!-- THÔNG TIN NHÂN VIÊN -->
+  <div *ngIf="employee" class="mb-3">
+    <h5 class="text-primary">
+      Nhân viên: {{ employee.firstName }} {{ employee.lastName }} (ID: {{ employee.employeeId }})
+    </h5>
+  </div>
+
+  <hr style="border-top: 3px solid skyblue" *ngIf="leaves.length > 0" />
+
+  <!-- DANH SÁCH ĐƠN NGHỈ VIỆC -->
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let leave of leaves">
+      <div class="card h-100 shadow" (click)="toggleDetails(leave.leaveId)" style="cursor: pointer;">
+        <img src="https://ductingroup.com/storage/uploads/don-xin-nghi-phep-1.png" class="card-img-top" alt="leave image" />
+        <div class="card-body text-center">
+          <h5 class="card-title">Ngày nghỉ: {{ leave.startDate | date:'dd/MM/yyyy' }}</h5>
+          <p class="text-muted mb-1">
+  <strong>Nhân viên:</strong> {{ leave.employee?.firstName }} {{ leave.employee?.lastName }} (ID: {{ leave.employee?.employeeId }})
+</p>
+
+          <div 
+            class="badge p-2"
+            [ngClass]="{
+              'bg-warning text-dark': leave.status === 'Pending',
+              'bg-success': leave.status === 'Approved',
+              'bg-danger': leave.status === 'Rejected'
+            }">
+            {{ leave.status === 'Pending' ? 'Đang chờ duyệt' : (leave.status === 'Approved' ? 'Đã duyệt' : 'Từ chối duyệt') }}
+          </div>
+        </div>
+
+        <!-- Chi tiết -->
+        <div *ngIf="selectedLeaveId === leave.leaveId" class="card-footer text-start bg-light">
+          <p><strong>Loại nghỉ:</strong> {{ leave.leaveType }}</p>
+          <p><strong>Từ:</strong> {{ leave.startDate | date:'dd/MM/yyyy' }}</p>
+          <p><strong>Đến:</strong> {{ leave.endDate | date:'dd/MM/yyyy' }}</p>
+          <p><strong>Lý do:</strong> {{ leave.reason }}</p>
+          <div *ngIf="leave.status === 'Pending'" class="mt-2 d-flex gap-2">
+    <button class="btn btn-sm btn-info text-white" (click)="updateLeaveStatus(leave.leaveId, 'Approved')">
+      ✔ Duyệt
+    </button>
+    <button class="btn btn-sm btn-danger" (click)="updateLeaveStatus(leave.leaveId, 'Rejected')">
+      ✖ Từ chối
+    </button>
+  </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

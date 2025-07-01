@@ -1,0 +1,48 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Chỉnh sửa thông tin cá nhân</h2>
+  <form [formGroup]="employeeForm" (ngSubmit)="uupdateEmployee()">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label>Họ:</label>
+        <input type="text" class="form-control" formControlName="ho" />
+      </div>
+      <div class="col-md-6 mb-3">
+        <label>Tên:</label>
+        <input type="text" class="form-control" formControlName="ten" />
+      </div>
+      <div class="col-md-6 mb-3">
+        <label>Ngày sinh:</label>
+        <input type="date" class="form-control" formControlName="ngaySinh" />
+      </div>
+      <div class="col-md-6 mb-3">
+        <label>Giới tính:</label>
+        <select class="form-control" formControlName="gioiTinh">
+          <option value="Nam">Nam</option>
+          <option value="Nữ">Nữ</option>
+          <option value="Khác">Khác</option>
+        </select>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label>Ngày vào làm:</label>
+        <input type="date" class="form-control" formControlName="ngayVaoLam" />
+      </div>
+      <div class="col-md-6 mb-3">
+        <label>Số điện thoại:</label>
+        <input type="text" class="form-control" formControlName="soDienThoai" />
+      </div>
+      <div class="col-md-6 mb-3">
+        <label>Email:</label>
+        <input type="email" class="form-control" formControlName="email" />
+      </div>
+      <div class="col-md-6 mb-3">
+        <label>Tôn giáo:</label>
+        <input type="text" class="form-control" formControlName="quocTich" />
+      </div>
+      <div class="col-12 mb-3">
+        <label>Địa chỉ:</label>
+        <input type="text" class="form-control" formControlName="diaChi" />
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+  </form>
+</div>

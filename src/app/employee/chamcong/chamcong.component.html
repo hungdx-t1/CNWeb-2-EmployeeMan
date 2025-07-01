@@ -1,0 +1,35 @@
+<div class="controls-container">
+    <div class="buttons-wrapper">
+        <button (click)="checkIn()" [disabled]="checkedInToday">Check-in</button>
+        <button (click)="checkOut()" [disabled]="!checkedInToday || checkedOutToday">Check-out</button>
+        <p *ngIf="checkInTime">Đã check-in lúc: <strong>{{ checkInTime }}</strong></p>
+    </div>
+    <div class="current-time">
+        <p>{{ currentTime | date:'HH:mm:ss' }}</p>
+    </div>
+</div>
+
+<div *ngFor="let cal of calendars.slice().reverse()" class="calendar-month">
+    <h3>Tháng {{ cal.month }}/{{ cal.year }}: {{ cal.workDays }} công</h3>
+
+    <table class="calendar-table">
+        <thead>
+            <tr>
+                <th>CN</th>
+                <th>T2</th>
+                <th>T3</th>
+                <th>T4</th>
+                <th>T5</th>
+                <th>T6</th>
+                <th>T7</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let week of getWeeks(cal.days)">
+                <td *ngFor="let day of week" [ngClass]="day ? getDayClasses(day) : ''">
+                    <span *ngIf="day">{{ day.date.getDate() }}</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

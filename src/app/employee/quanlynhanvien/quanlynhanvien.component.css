@@ -1,0 +1,164 @@
+.search-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .search-container h1 {
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            overflow: hidden;
+            padding: 5px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-box input[type="text"] {
+            border: none;
+            outline: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            flex-grow: 1;
+            border-radius: 20px; /* Làm tròn góc cho input */
+        }
+
+        .search-box button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px; /* Làm tròn góc cho button */
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-left: 5px; /* Khoảng cách giữa input và button */
+        }
+
+        .search-box button:hover {
+            background-color: #0056b3;
+        }
+        /* quanlynhanvien.component.css */
+
+/* Định dạng chung cho bảng */
+table {
+    width: 100%; /* Bảng chiếm toàn bộ chiều rộng có sẵn */
+    border-collapse: collapse; /* Gộp các đường viền của ô */
+    margin-top: 20px; /* Khoảng cách trên từ các phần tử khác */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ cho bảng */
+    background-color: #fff; /* Nền trắng cho bảng */
+    border-radius: 8px; /* Bo tròn góc bảng */
+    overflow: hidden; /* Đảm bảo nội dung không tràn ra ngoài góc bo tròn */
+}
+
+/* Định dạng tiêu đề bảng */
+thead {
+    background-color: #007bff; /* Nền xanh cho tiêu đề */
+    color: white; /* Chữ trắng */
+}
+
+th {
+    padding: 12px 15px; /* Đệm bên trong ô tiêu đề */
+    text-align: left; /* Căn lề trái cho văn bản tiêu đề */
+    font-weight: bold; /* Chữ in đậm */
+    border-bottom: 2px solid #0056b3; /* Đường kẻ dưới đậm hơn */
+}
+
+/* Định dạng các hàng dữ liệu */
+tbody tr {
+    border-bottom: 1px solid #ddd; /* Đường kẻ phân cách giữa các hàng */
+}
+
+/* Hiệu ứng hover cho hàng */
+tbody tr:hover {
+    background-color: #f5f5f5; /* Nền xám nhạt khi di chuột qua */
+}
+
+/* Định dạng các ô dữ liệu */
+td {
+    padding: 10px 15px; /* Đệm bên trong ô dữ liệu */
+    vertical-align: middle; /* Căn giữa theo chiều dọc */
+    color: #333; /* Màu chữ cho dữ liệu */
+}
+
+/* Định dạng nút Xóa và Sửa */
+td button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    margin-right: 5px; /* Khoảng cách giữa các nút */
+}
+
+td button:last-child {
+    margin-right: 0; /* Bỏ khoảng cách cho nút cuối cùng */
+}
+
+.btn-delete {
+    background-color: #dc3545; /* Màu đỏ */
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #c82333; /* Màu đỏ đậm hơn khi hover */
+}
+
+/* Màu sắc cho nút Sửa */
+.btn-edit {
+    background-color: #007bff; /* Màu xanh dương */
+    color: white; /* Chữ màu trắng */
+}
+
+.btn-edit:hover {
+    background-color: #0056b3; /* Màu xanh dương đậm hơn khi hover */
+}
+/* Responsive cơ bản cho bảng trên màn hình nhỏ hơn */
+@media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+        display: block; /* Chuyển các phần tử bảng thành block */
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px; /* Ẩn tiêu đề trên màn hình nhỏ */
+    }
+
+    tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd; /* Thêm viền cho từng hàng trên di động */
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    td {
+        border: none;
+        border-bottom: 1px solid #eee; /* Đường kẻ dưới cho từng ô dữ liệu */
+        position: relative;
+        padding-left: 50%; /* Đệm để chứa nhãn */
+        text-align: right; /* Căn phải dữ liệu */
+    }
+
+    td:before {
+        position: absolute;
+        top: 0;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        content: attr(data-label); /* Sử dụng thuộc tính data-label để hiển thị tiêu đề */
+        font-weight: bold;
+        text-align: left; /* Căn trái nhãn */
+        color: #555;
+    }
+}

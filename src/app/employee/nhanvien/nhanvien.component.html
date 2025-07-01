@@ -1,0 +1,82 @@
+<!-- nhanvien.component.html -->
+<div class="container mt-4">
+  <h4 class="text-primary fw-bold mb-3">📋 Danh sách nhân viên</h4>
+
+  <!-- Tìm kiếm -->
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <input class="form-control" [(ngModel)]="searchTerm" (ngModelChange)="applyFilter()" placeholder="Tìm theo tên, mã, chức vụ...">
+    </div>
+  </div>
+
+  <!-- Bảng danh sách nhân viên -->
+  <table class="table table-bordered table-hover text-center">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Họ tên</th>
+        <th>Giới tính</th>
+        <th>Ngày vào</th>
+        <th>Chức vụ</th>
+        <th>Cấp bậc</th>
+        <th>Hành động</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let emp of filteredEmployees">
+        <tr>
+          <td>{{ emp.employeeId }}</td>
+          <td>{{ emp.firstName }} {{ emp.lastName }}</td>
+          <td>{{ emp.gender }}</td>
+          <td>{{ emp.hireDate }}</td>
+          <td>{{ emp.positionName }}</td>
+          <td>{{ emp.level }}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-info me-1" (click)="showDetails(emp)">👁️</button>
+            <button class="btn btn-sm btn-outline-primary me-1" (click)="toggleEditDropdown(emp.employeeId)">📝</button>
+            <button class="btn btn-sm btn-outline-danger" (click)="deleteEmployee(emp)">🗑️</button>
+          </td>
+        </tr>
+        <tr *ngIf="editDropdownId === emp.employeeId">
+          <td colspan="7">
+            <div class="btn-group">
+              <button *ngFor="let pos of positionOptions"
+                      class="btn btn-sm"
+                      [ngClass]="{
+                        'btn-success': emp.positionId === pos.value,
+                        'btn-secondary': emp.positionId !== pos.value
+                      }"
+                      (click)="changePosition(emp, pos.value)">
+                {{ pos.label }}
+              </button>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <!-- Thông tin chi tiết -->
+  <div *ngIf="selectedEmployee" class="card mt-4 shadow">
+    <div class="card-header bg-primary text-white">
+      🧑‍💼 Chi tiết nhân viên: {{ selectedEmployee.firstName }} {{ selectedEmployee.lastName }}
+    </div>
+    <div class="card-body row">
+      <div class="col-md-8">
+        <p><strong>• Ngày sinh:</strong> {{ selectedEmployee.dateOfBirth }}</p>
+        <p><strong>• Giới tính:</strong> {{ selectedEmployee.gender }}</p>
+        <p><strong>• Ngày vào làm:</strong> {{ selectedEmployee.hireDate }}</p>
+        <p><strong>• Vị trí/chức vụ:</strong> {{ selectedEmployee.positionName }}</p>
+        <p><strong>• Cấp bậc:</strong> {{ selectedEmployee.level }}</p>
+        <p><strong>• Số điện thoại:</strong> {{ selectedEmployee.phoneNumber }}</p>
+        <p><strong>• Email:</strong> {{ selectedEmployee.email }}</p>
+        <p><strong>• Quốc tịch:</strong> {{ selectedEmployee.nation }}</p>
+        <p><strong>• Địa chỉ:</strong> {{ selectedEmployee.address }}</p>
+      </div>
+      <div class="col-md-4 text-center">
+        <img src="assets/images/user.png" alt="Ảnh đại diện" class="img-fluid rounded-circle" style="max-width: 150px;">
+        <p class="mt-2 text-muted">Ảnh đại diện</p>
+      </div>
+    </div>
+  </div>
+</div>

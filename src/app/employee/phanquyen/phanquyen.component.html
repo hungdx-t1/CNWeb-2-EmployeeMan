@@ -1,0 +1,118 @@
+<!-- TÌM KIẾM -->
+<div class="search-container">
+  <h1>Phân quyền tài khoản</h1>
+  <div class="search-box">
+    <input type="text" [(ngModel)]="searchId" placeholder="Nhập ID tìm kiếm..." />
+    <button (click)="performSearch()">Tìm kiếm</button>
+  </div>
+</div>
+
+<!-- KẾT QUẢ TÌM KIẾM -->
+<div *ngIf="filteredEmployees.length > 0">
+  <h2>Kết quả tìm kiếm</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Họ và tên</th>
+        <th>Tài khoản</th>
+        <th>Vai trò</th>
+        <th colspan="4">Thay đổi quyền</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let i of filteredEmployees">
+        <td>{{ i.employeeId }}</td>
+        <td>{{ i.firstName }} {{ i.lastName }}</td>
+        <td>{{ i.username }}</td>
+        <td>{{ i.role }}</td>
+        <td>
+          <button
+            [class]="getButtonClass(i.role, 'Admin')"
+            (click)="updateRole(i.userId, 'Admin', i.role)"
+          >
+            Admin
+          </button>
+        </td>
+        <td>
+          <button
+            [class]="getButtonClass(i.role, 'HR')"
+            (click)="updateRole(i.userId, 'HR', i.role)"
+          >
+            HR
+          </button>
+        </td>
+        <td>
+          <button
+            [class]="getButtonClass(i.role, 'Manager')"
+            (click)="updateRole(i.userId, 'Manager', i.role)"
+          >
+            Manager
+          </button>
+        </td>
+        <td>
+          <button
+            [class]="getButtonClass(i.role, 'Employee')"
+            (click)="updateRole(i.userId, 'Employee', i.role)"
+          >
+            Employee
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- DANH SÁCH TẤT CẢ NHÂN VIÊN -->
+<h2>Danh sách nhân viên</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Họ và tên</th>
+      <th>Tài khoản</th>
+      <th>Vai trò</th>
+      <th colspan="4">Thay đổi quyền</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let i of employees">
+      <td>{{ i.employeeId }}</td>
+      <td>{{ i.firstName }} {{ i.lastName }}</td>
+      <td>{{ i.username }}</td>
+      <td>{{ i.role }}</td>
+      <td>
+        <button
+          [class]="getButtonClass(i.role, 'Admin')"
+          (click)="updateRole(i.userId, 'Admin', i.role)"
+        >
+          Admin
+        </button>
+      </td>
+      <td>
+        <button
+          [class]="getButtonClass(i.role, 'HR')"
+          (click)="updateRole(i.userId, 'HR', i.role)"
+        >
+          HR
+        </button>
+      </td>
+      <td>
+        <button
+          [class]="getButtonClass(i.role, 'Manager')"
+          (click)="updateRole(i.userId, 'Manager', i.role)"
+        >
+          Manager
+        </button>
+      </td>
+      <td>
+        <button
+          [class]="getButtonClass(i.role, 'Employee')"
+          (click)="updateRole(i.userId, 'Employee', i.role)"
+        >
+          Employee
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

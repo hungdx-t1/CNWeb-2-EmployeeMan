@@ -1,0 +1,54 @@
+<div class="search-container">
+  <h1>Quản lý tài khoản</h1>
+  <div class="search-box">
+    <input type="text" [(ngModel)]="searchId" placeholder="Nhập ID tìm kiếm..." />
+    <button (click)="performSearch()">Tìm kiếm</button>
+  </div>
+</div>
+
+<!-- ✅ KẾT QUẢ TÌM KIẾM - HIỂN THỊ PHÍA TRÊN -->
+<div *ngIf="filteredEmployees.length > 0">
+  <h2>Kết quả tìm kiếm</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Họ và tên</th>
+        <th>Tài khoản</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let i of filteredEmployees">
+        <td>{{ i.employeeId }}</td>
+        <td>{{ i.firstName }} {{ i.lastName }}</td>
+        <td>{{ i.username }}</td>
+        <td><button class="btn-delete" (click)="onDeleteEmployee(i.employeeId, i.userId)">Xóa</button></td>
+        <td><button class="btn-edit">Sửa</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ✅ BẢNG GỐC - DANH SÁCH TOÀN BỘ NHÂN VIÊN -->
+<h2>Danh sách nhân viên</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Họ và tên</th>
+      <th>Tài khoản</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let i of employees">
+      <td>{{ i.employeeId }}</td>
+      <td>{{ i.firstName }} {{ i.lastName }}</td>
+      <td>{{ i.username }}</td>
+      <td><button class="btn-delete" (click)="onDeleteEmployee(i.employeeId, i.userId)">Xóa</button></td>
+    </tr>
+  </tbody>
+</table>

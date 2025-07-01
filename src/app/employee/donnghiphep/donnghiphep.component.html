@@ -1,0 +1,60 @@
+<div class="container mt-4">
+  <!-- Nửa trên -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <button class="create-button" (click)="goToCreateLeave()">Tạo đơn</button>
+
+    <!-- Khung chú thích -->
+    <div class="border rounded p-2 bg-light">
+      <div class="d-flex align-items-center mb-1">
+        <div class="square bg-danger me-2"></div>
+        <span>Từ chối duyệt</span>
+      </div>
+      <div class="d-flex align-items-center mb-1">
+        <div class="square bg-warning me-2"></div>
+        <span>Đang chờ duyệt</span>
+      </div>
+      <div class="d-flex align-items-center">
+        <div class="square bg-success me-2"></div>
+        <span>Đã duyệt</span>
+      </div>
+    </div>
+  </div>
+
+  <hr style="border-top: 3px solid skyblue" />
+
+  <!-- Nửa dưới: Các thẻ đơn nghỉ phép -->
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let leave of leaves">
+      <div class="card h-100 shadow" (click)="toggleDetails(leave.leaveId)" style="cursor: pointer;">
+        <img src="https://ductingroup.com/storage/uploads/don-xin-nghi-phep-1.png" class="card-img-top" alt="leave image" />
+        <div class="card-body text-center">
+          <h5 class="card-title">Ngày nghỉ: {{ leave.startDate | date:'dd/MM/yyyy' }}</h5>
+          <div 
+            class="badge p-2" 
+            [ngClass]="{
+              'bg-warning text-dark': leave.status === 'Pending',
+              'bg-success': leave.status === 'Approved',
+              'bg-danger': leave.status === 'Rejected'
+            }">
+            {{ leave.status === 'Pending' ? 'Đang chờ duyệt' : (leave.status === 'Approved' ? 'Đã duyệt' : 'Từ chối duyệt') }}
+          </div>
+        </div>
+
+        <!-- ✨ Chi tiết đơn nghỉ phép -->
+        <div *ngIf="selectedLeaveId === leave.leaveId" class="card-footer text-start bg-light">
+          <p><strong>Loại nghỉ:</strong> {{ leave.leaveType }}</p>
+          <p><strong>Từ:</strong> {{ leave.startDate | date:'dd/MM/yyyy' }}</p>
+          <p><strong>Đến:</strong> {{ leave.endDate | date:'dd/MM/yyyy' }}</p>
+          <p><strong>Lý do:</strong> {{ leave.reason }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .square {
+    width: 20px;
+    height: 20px;
+  }
+</style>

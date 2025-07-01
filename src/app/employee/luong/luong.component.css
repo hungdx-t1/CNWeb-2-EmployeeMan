@@ -1,0 +1,33 @@
+.title {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 24px;
+  color: #2c3e50;
+}
+
+.salary-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.salary-table th,
+.salary-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.salary-table thead {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.salary-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.salary-table td {
+  font-size: 15px;
+}

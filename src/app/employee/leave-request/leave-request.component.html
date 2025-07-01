@@ -1,0 +1,37 @@
+<div class="container mt-4">
+  <h3 class="mb-4">Gửi đơn nghỉ phép</h3>
+
+  <form [formGroup]="leaveForm" (ngSubmit)="submitLeave()">
+    <div class="mb-3">
+      <label for="leaveType" class="form-label">Loại nghỉ phép</label>
+      <select class="form-select" formControlName="leaveType" required>
+        <option value="">-- Chọn loại --</option>
+        <option value="Nghỉ phép năm">Nghỉ phép năm</option>
+        <option value="Nghỉ ốm">Nghỉ ốm</option>
+        <option value="Nghỉ đột xuất">Nghỉ đột xuất</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="startDate" class="form-label">Ngày nghỉ</label>
+      <input type="date" class="form-control" formControlName="startDate" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="endDate" class="form-label">Ngày kết thúc</label>
+      <input type="date" class="form-control" formControlName="endDate" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="reason" class="form-label">Lý do</label>
+      <textarea class="form-control" formControlName="reason" rows="3" required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="leaveForm.invalid">
+      Gửi đơn
+    </button>
+
+    <div class="alert alert-success mt-3" *ngIf="successMessage">{{ successMessage }}</div>
+    <div class="alert alert-danger mt-3" *ngIf="errorMessage">{{ errorMessage }}</div>
+  </form>
+</div>

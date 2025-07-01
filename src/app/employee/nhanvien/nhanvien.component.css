@@ -1,0 +1,53 @@
+/* nhanvien.component.css */
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+input.form-control::placeholder {
+  font-style: italic;
+  color: #888;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f5f5f5;
+  transition: background-color 0.2s;
+}
+
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card-header {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.card-body p {
+  margin-bottom: 0.5rem;
+}
+
+button.btn-sm {
+  transition: transform 0.2s ease-in-out;
+}
+
+button.btn-sm:hover {
+  transform: scale(1.05);
+}
+
+img.rounded-circle {
+  border: 2px solid #ccc;
+  padding: 5px;
+}
+
+.mt-2.text-muted {
+  font-size: 0.9rem;
+  color: #666;
+}

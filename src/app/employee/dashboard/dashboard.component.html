@@ -1,0 +1,77 @@
+<div class="container mt-4">
+
+  <div class="mb-4">
+    <h2 class="fw-bold text-primary">👋 Chào mừng bạn trở lại, {{ employee?.firstName }} {{ employee?.lastName }}!</h2>
+  </div>
+
+  <!-- Thông tin cá nhân -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header bg-danger text-white fw-semibold">
+      🧑‍💼 Thông tin của bạn
+    </div>
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <p><strong>• Họ và tên:</strong> {{ employee?.firstName }} {{ employee?.lastName }}</p>
+          <p><strong>• Ngày sinh:</strong> {{ employee?.dateOfBirth }}</p>
+          <p><strong>• Giới tính:</strong> {{ employee?.gender }}</p>
+          <p><strong>• Ngày vào làm:</strong> {{ employee?.hireDate }}</p>
+          <p><strong>• Vị trí/chức vụ:</strong> {{ getPositionName() }}</p>
+        </div>
+
+        <!-- Cột ảnh đại diện -->
+        <div class="col-md-4 text-center">
+          <img 
+            src="assets/images/user.png"
+            alt="Ảnh đại diện"
+            class="img-fluid rounded-circle shadow-sm"
+            style="max-width: 150px;"
+          />
+          <p class="mt-2 text-muted">Ảnh đại diện</p>
+        </div>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <a class="btn btn-outline-primary w-100" routerLink="/main/chinhsuathongtincanhan">
+            ✍️ Bấm vào đây để chỉnh sửa thông tin cá nhân
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+<!-- Tóm tắt nhanh -->
+<div class="card mb-4 shadow-sm">
+  <div class="card-header bg-info text-white fw-semibold">
+    📋 Tóm tắt nhanh
+  </div>
+  <div class="card-body">
+    <p><strong>• Các đơn nghỉ phép chưa duyệt:</strong> {{ pendingLeaves.length }} đơn</p>
+    <p><strong>• Số ngày đã làm việc trong tháng:</strong> {{ daysWorkedInMonth }} ngày</p>
+    <p>
+      <strong>• Lương tháng này:</strong>
+      {{ totalSalaryThisMonth | number: '1.0-0' }} (thưởng {{ bonusThisMonth | number: '1.0-0' }})
+    </p>
+  </div>
+</div>
+
+
+  <!-- Điều hướng nhanh -->
+  <div class="card shadow-sm">
+    <div class="card-header bg-warning fw-semibold">
+      📌 Điều hướng nhanh
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <a class="btn btn-outline-primary w-100" routerLink="/main/donnghiphep">📅 Xem yêu cầu nghỉ phép</a>
+      </li>
+      <li class="list-group-item">
+        <a class="btn btn-outline-primary w-100" routerLink="/main/luong">💰 Xem lịch sử lương</a>
+      </li>
+      <li class="list-group-item">
+        <a class="btn btn-outline-primary w-100" routerLink="/main/attendance">🕒 Xem lịch sử chấm công</a>
+      </li>
+    </ul>
+  </div>
+
+</div>

@@ -1,0 +1,85 @@
+<div class="container mt-4">
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <input
+        [(ngModel)]="searchTerm"
+        (input)="applyFilter()"
+        class="form-control"
+        placeholder="🔍 Tìm kiếm theo mã hoặc tên nhân viên"
+      />
+    </div>
+  </div>
+
+  <table class="table table-bordered table-hover text-center align-middle">
+    <thead class="table-light">
+      <tr>
+        <th>Employee ID</th>
+        <th>Họ tên</th>
+        <th>Chức vụ</th>
+        <th>Lương/ngày</th>
+        <th>Ngày công</th>
+        <th>Thưởng</th>
+        <th>Tổng lương</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of filteredEmployees()">
+        <td>{{ emp.employeeId }}</td>
+        <td>
+          <button class="btn btn-link p-0" (click)="selectEmployee(emp)">
+            {{ emp.firstName }} {{ emp.lastName }}
+          </button>
+        </td>
+        <td>{{ getPositionName(emp) }}</td>
+        <td>
+          {{
+            salaries[emp.employeeId]
+              ? (salaries[emp.employeeId].baseSalary / 30)
+              : '...'
+            | number: '1.0-0'
+          }}
+        </td>
+        <td>
+          {{ workdays[emp.employeeId] ?? '...' }}
+        </td>
+        <td>
+          {{
+            isBonusInSelectedMonth(emp.employeeId)
+              ? salaries[emp.employeeId]?.bonus
+              : 0
+            | number: '1.0-0'
+          }}
+        </td>
+        <td class="fw-bold text-success">
+          {{ getTotalSalary(emp.employeeId) | number: '1.0-0' }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="selectedEmployee">
+    <h4 class="mt-4">
+      Bảng lương chi tiết: {{ selectedEmployee.firstName }} {{ selectedEmployee.lastName }}
+    </h4>
+    <table class="table table-sm table-bordered text-center align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Tháng/Năm</th>
+          <th>Ngày công</th>
+          <th>Lương/ngày</th>
+          <th>Thưởng</th>
+          <th>Tổng</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of salaryTable">
+          <td>{{ row.month }}/{{ row.year }}</td>
+          <td>{{ row.daysWorked }}</td>
+          <td>{{ row.baseSalary | number: '1.0-0' }}</td>
+          <td>{{ row.bonus | number: '1.0-0' }}</td>
+          <td>{{ row.total + row.bonus | number: '1.0-0' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
