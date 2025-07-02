@@ -26,12 +26,9 @@ export interface Leave {
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './quanlydonnghiviec.component.html',
-  styleUrls: ['./quanlydonnghiviec.component.css']
+  styleUrls: ['./quanlydonnghiviec.component.css'],
 })
-
-
-
-export class QuanlydonnghiviecComponent implements OnInit{
+export class QuanlydonnghiviecComponent implements OnInit {
   searchId: string = '';
   leaves: Leave[] = [];
   selectedLeaveId: number | null = null;
@@ -47,69 +44,72 @@ export class QuanlydonnghiviecComponent implements OnInit{
   }
 
   performSearch(): void {
-  const empId = Number(this.searchId);
+    const empId = Number(this.searchId);
 
-  if (!empId) {
-    this.employee = null;
+    if (!empId) {
+      this.employee = null;
 
-    forkJoin({
-      leaves: this.leaveService.getAllLeaves(),
-      employees: this.employeeService.getAllEmployees()
-    }).subscribe({
-      next: ({ leaves, employees }) => {
-        const mergedLeaves = leaves.map(leave => {
-          const emp = employees.find(e => e.employeeId === leave.employeeId);
-          return { ...leave, employee: emp };
+      forkJoin({
+        leaves: this.leaveService.getAllLeaves(),
+        employees: this.employeeService.getAllEmployees(),
+      }).subscribe({
+        next: ({ leaves, employees }) => {
+          const mergedLeaves = leaves.map((leave) => {
+            const emp = employees.find(
+              (e) => e.employeeId === leave.employeeId
+            );
+            return { ...leave, employee: emp };
+          });
+
+          this.leaves = mergedLeaves.sort((a, b) => b.leaveId - a.leaveId);
+        },
+        error: () => {
+          this.leaves = [];
+        },
+      });
+
+      return;
+    }
+
+    // Có nhập ID nhân viên
+    this.employeeService.getEmployeeByUserId(empId).subscribe({
+      next: (emp) => {
+        this.employee = emp;
+        this.leaveService.getAllLeavesByEmployee(empId).subscribe({
+          next: (leaves) => {
+            this.leaves = leaves
+              .sort((a, b) => b.leaveId - a.leaveId)
+              .map((leave) => ({ ...leave, employee: emp }));
+          },
+          error: () => (this.leaves = []),
         });
-
-        this.leaves = mergedLeaves.sort((a, b) => b.leaveId - a.leaveId);
       },
       error: () => {
+        this.employee = null;
         this.leaves = [];
-      }
+      },
     });
-
-    return;
   }
 
-  // Có nhập ID nhân viên
-  this.employeeService.getEmployeeByUserId(empId).subscribe({
-    next: (emp) => {
-      this.employee = emp;
-      this.leaveService.getAllLeavesByEmployee(empId).subscribe({
-        next: (leaves) => {
-          this.leaves = leaves
-            .sort((a, b) => b.leaveId - a.leaveId)
-            .map(leave => ({ ...leave, employee: emp }));
-        },
-        error: () => this.leaves = []
-      });
-    },
-    error: () => {
-      this.employee = null;
-      this.leaves = [];
-    }
-  });
-}
-
-
-updateLeaveStatus(leaveId: number, newStatus: 'Approved' | 'Rejected'): void {
-  this.leaveService.updateLeaveStatus(leaveId, newStatus).subscribe({
-    next: () => {
-      // Cập nhật local để hiển thị ngay trên UI
-      const leave = this.leaves.find(l => l.leaveId === leaveId);
-      if (leave) {
-        leave.status = newStatus;
-      }
-    },
-    error: (err) => {
-      console.error('Lỗi cập nhật trạng thái:', err);
-      alert(`Không thể cập nhật trạng thái.\nMã lỗi: ${err.status}\nThông báo: ${err.message || err.error}`);
-    }
-  });
-}
-
-
+  updateLeaveStatus(leaveId: number, newStatus: 'Approved' | 'Rejected'): void {
+    this.leaveService.updateLeaveStatus(leaveId, newStatus).subscribe({
+      next: () => {
+        // Cập nhật local để hiển thị ngay trên UI
+        const leave = this.leaves.find((l) => l.leaveId === leaveId);
+        if (leave) {
+          leave.status = newStatus;
+        }
+      },
+      error: (err) => {
+        console.error('Lỗi cập nhật trạng thái:', err);
+        alert(
+          `Không thể cập nhật trạng thái.\nMã lỗi: ${err.status}\nThông báo: ${
+            err.message || err.error
+          }`
+        );
+      },
+    });
+  }
 
   toggleDetails(leaveId: number): void {
     this.selectedLeaveId = this.selectedLeaveId === leaveId ? null : leaveId;

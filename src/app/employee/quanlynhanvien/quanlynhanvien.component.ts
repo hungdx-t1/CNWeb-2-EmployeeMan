@@ -27,7 +27,7 @@ export interface User {
   standalone: true, // Quan trọng: Đảm bảo component là Standalone nếu bạn dùng `imports` trực tiếp
   imports: [CommonModule, FormsModule], // CommonModule cần thiết cho *ngFor
   templateUrl: './quanlynhanvien.component.html',
-  styleUrl: './quanlynhanvien.component.css'
+  styleUrl: './quanlynhanvien.component.css',
 })
 export class QuanlynhanvienComponent implements OnInit {
   // employees sẽ chứa dữ liệu nhân viên đã được hợp nhất với username
@@ -51,19 +51,21 @@ export class QuanlynhanvienComponent implements OnInit {
   private loadEmployeesAndUsers(): void {
     forkJoin({
       employees: this.employeeApiService.getAllEmployees(),
-      users: this.userApiService.getall()
+      users: this.userApiService.getall(),
     }).subscribe(
       ({ employees, users }) => {
-        this.employees = employees.map(emp => {
-          const matchingUser = users.find(user => user.employeeId === emp.employeeId);
+        this.employees = employees.map((emp) => {
+          const matchingUser = users.find(
+            (user) => user.employeeId === emp.employeeId
+          );
           return {
             ...emp,
             username: matchingUser ? matchingUser.username : 'N/A',
-            userId: matchingUser ? matchingUser.userId : undefined // Lấy userId để sử dụng cho thao tác User
+            userId: matchingUser ? matchingUser.userId : undefined, // Lấy userId để sử dụng cho thao tác User
           };
         });
       },
-      error => {
+      (error) => {
         console.error('Lỗi khi lấy dữ liệu từ API:', error);
         // Xử lý lỗi: hiển thị thông báo cho người dùng, v.v.
       }
@@ -77,7 +79,9 @@ export class QuanlynhanvienComponent implements OnInit {
     } else {
       const id = Number(trimmed);
       if (!isNaN(id)) {
-        this.filteredEmployees = this.employees.filter(emp => emp.employeeId === id);
+        this.filteredEmployees = this.employees.filter(
+          (emp) => emp.employeeId === id
+        );  
       } else {
         this.filteredEmployees = [];
       }
@@ -90,36 +94,54 @@ export class QuanlynhanvienComponent implements OnInit {
    * @param userId (Tùy chọn) ID của tài khoản người dùng liên quan, nếu bạn muốn xóa cả user khi xóa employee.
    */
   onDeleteEmployee(employeeId: number, userId?: number): void {
-  if (confirm(`Bạn có chắc chắn muốn xóa nhân viên ID: ${employeeId} này không?`)) {
-    this.employeeApiService.deleteEmployee(employeeId).subscribe(
-      () => {
-        console.log(`Đã xóa nhân viên ID: ${employeeId} thành công.`);
-        this.loadEmployeesAndUsers();
+    if (
+      confirm(
+        `Bạn có chắc chắn muốn xóa nhân viên ID: ${employeeId} này không?`
+      )
+    ) {
+      this.employeeApiService.deleteEmployee(employeeId).subscribe(
+        () => {
+          console.log(`Đã xóa nhân viên ID: ${employeeId} thành công.`);
+          this.loadEmployeesAndUsers();
 
-        if (userId) {
-          this.userApiService.deleteUser(userId).subscribe(
-            () => {
-              console.log(`Đã xóa tài khoản ID: ${userId} liên quan.`);
-            },
-            userError => {
-              console.warn(`Không thể xóa tài khoản ID: ${userId} liên quan:`, userError);
-              if (userError.status !== 404) {
-  alert(`⚠️ Không thể xóa tài khoản ID: ${userId} liên quan.\nChi tiết: ${userError?.error?.message || userError?.message || 'Lỗi không xác định'}`);
-} else {
-  console.log(`⚠️ Tài khoản ID: ${userId} không tồn tại, có thể đã bị xóa từ trước.`);
-}
-
-            }
+          if (userId) {
+            this.userApiService.deleteUser(userId).subscribe(
+              () => {
+                console.log(`Đã xóa tài khoản ID: ${userId} liên quan.`);
+              },
+              (userError) => {
+                console.warn(
+                  `Không thể xóa tài khoản ID: ${userId} liên quan:`,
+                  userError
+                );
+                if (userError.status !== 404) {
+                  alert(
+                    `⚠️ Không thể xóa tài khoản ID: ${userId} liên quan.\nChi tiết: ${
+                      userError?.error?.message ||
+                      userError?.message ||
+                      'Lỗi không xác định'
+                    }`
+                  );
+                } else {
+                  console.log(
+                    `⚠️ Tài khoản ID: ${userId} không tồn tại, có thể đã bị xóa từ trước.`
+                  );
+                }
+              }
+            );
+          }
+        },
+        (error) => {
+          console.error(`❌ Lỗi khi xóa nhân viên ID: ${employeeId}:`, error);
+          const errorMsg =
+            error?.error?.message ||
+            error?.message ||
+            'Lỗi hệ thống không xác định. Vui lòng thử lại sau.';
+          alert(
+            `❌ Không thể xóa nhân viên ID: ${employeeId}.\nChi tiết lỗi: ${errorMsg}`
           );
         }
-      },
-      error => {
-        console.error(`❌ Lỗi khi xóa nhân viên ID: ${employeeId}:`, error);
-        const errorMsg = error?.error?.message || error?.message || 'Lỗi hệ thống không xác định. Vui lòng thử lại sau.';
-        alert(`❌ Không thể xóa nhân viên ID: ${employeeId}.\nChi tiết lỗi: ${errorMsg}`);
-      }
-    );
+      );
+    }
   }
-}
-
 }

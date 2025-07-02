@@ -14,6 +14,8 @@ import { AuthService } from '../../core/auth/auth.service';
   templateUrl: './chinhsua.component.html',
   styleUrls: ['./chinhsua.component.css']
 })
+
+// Component để chỉnh sửa thông tin nhân viên (Admin/manager/HR)
 export class ChinhsuaComponent implements OnInit {
   employeeForm!: FormGroup;
   employeeId!: number;

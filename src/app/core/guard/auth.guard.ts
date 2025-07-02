@@ -12,6 +12,7 @@ import { AuthService } from '../auth/auth.service';
 export class AuthGuard implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {}
 
+  // override the canActivate method to check if the user is logged in
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.auth.isLoggedIn()) {
       return true;
